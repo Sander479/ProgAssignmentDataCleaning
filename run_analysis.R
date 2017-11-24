@@ -11,6 +11,7 @@ x <- make.unique(as.character(x[,2]))
 l<- read.table("UCI HAR Dataset/activity_labels.txt")
 ## creating activity names for train and test dataset by adding a column at the end that displays the activity
 y_labelstrain <- read.table("UCI HAR Dataset/train/y_train.txt")
+y_labelstest <- read.table("UCI HAR Dataset/test/y_test.txt")
 ylabelstrain <- as.vector(y_labelstrain[,1])
 labeltrain <- cbind(as.vector(l[,1]),as.vector(l[,2]))
 Activity <- c()
@@ -18,7 +19,7 @@ for(i in 1:length(ylabelstrain)) {
   Activity[i]= labeltrain[ylabelstrain[i],2]
 }
 train <- cbind(Activity,train)
-y_labelstest <- read.table("UCI HAR Dataset/test/y_test.txt")
+
 ylabelstest <- as.vector(y_labelstest[,1])
 labeltest <- cbind(as.vector(l[,1]),as.vector(l[,2]))
 Activity <- c()
