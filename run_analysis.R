@@ -46,3 +46,14 @@ setDT(tidydata2)[, AvgMeanBodyAccelerationTimeZ := mean(MeanBodyAccelerationTime
 setDT(tidydata2)[, AvgStdBodyAccelerationTimeX := mean(StdBodyAccelerationTimeX), by = Activity]
 setDT(tidydata2)[, AvgStdBodyAccelerationTimeY := mean(StdBodyAccelerationTimeY), by = Activity]
 setDT(tidydata2)[, AvgStdBodyAccelerationTimeZ := mean(StdBodyAccelerationTimeZ), by = Activity]
+Codebook.MD <- matrix(rep(0,91),nrow=13,ncol=7)
+## write the dataset to a .txt file
+write.table(tidydata2, file = "tidy data.txt",row.name=FALSE)
+## create Codebook.MD that updates the Codebook.MD file with the variables and summaries
+rownames(Codebook.MD) <- colnames(tidydata2)
+colnames(Codebook.MD) <- c("Characteristic 1","Characteristic 3","Characteristic 3","Characteristic 4","Characteristic 5","Characteristic 6","Characteristic 7")
+for(i in 1:length(tidydata2[1,])) {
+  Codebook.MD[i,2:length(Codebook.MD[1,])] <- summary(tidydata2)[,i]
+}
+Codebook.MD[,1]<- c(class(tidydata2$Activity),class(tidydata2$MeanBodyAccelerationTimeX),class(tidydata2$MeanBodyAccelerationTimeY),class(tidydata2$MeanBodyAccelerationTimeZ),class(tidydata2$StdBodyAccelerationTimeX),class(tidydata2$StdBodyAccelerationTimeY),class(tidydata2$StdBodyAccelerationTimeZ),class(tidydata2$AvgMeanBodyAccelerationTimeX),class(tidydata2$AvgMeanBodyAccelerationTimeY),class(tidydata2$AvgMeanBodyAccelerationTimeZ),class(tidydata2$AvgStdBodyAccelerationTimeX),class(tidydata2$AvgStdBodyAccelerationTimeY),class(tidydata2$AvgStdBodyAccelerationTimeZ))
+write.table(Codebook.MD, file = "Codebook.MD")
